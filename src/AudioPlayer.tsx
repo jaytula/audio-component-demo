@@ -132,6 +132,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
           <PauseSVG className={pauseSVGClasses.join(" ")} />
         )}
       </div>
+      <div className={classes.timeline} />
       <div className={classes.timeRemaining}>
         {formatTime(timeRemaining || duration)}
       </div>

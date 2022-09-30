@@ -27,8 +27,15 @@
   height: 32px;
 }
 
+.timeline {
+  border: 1px solid white;
+  flex: 1;
+}
+
 .timeRemaining {
-  color: white;
+  color: #2d68c5;
+  font-weight: bold;
+  background-color: white;
   display: block;
   padding: 4px 12px;
   border: 2px solid white;
