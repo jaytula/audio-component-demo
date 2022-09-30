@@ -1,0 +1,36 @@
+.audioContainer {
+  width: 400px;
+  padding: 8px 16px;
+  border: 1px solid whitesmoke;
+  border-radius: 24px;
+  /* background-color: red; */
+  background-image: linear-gradient(
+    to right,
+    #2d68c5,
+    #2d68c5 calc(var(--position) * 100%),
+    #3982f7 calc(var(--position) * 100%)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.playButton {
+  fill: white;
+  width: 32px;
+  height: 32px;
+}
+
+.pauseButton {
+  fill: white;
+  width: 32px;
+  height: 32px;
+}
+
+.timeRemaining {
+  color: white;
+  display: block;
+  padding: 4px 12px;
+  border: 2px solid white;
+  border-radius: 16px;
+}
