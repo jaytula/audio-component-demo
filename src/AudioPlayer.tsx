@@ -14,6 +14,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
   const audioContainerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const timelineDotRef = useRef<HTMLDivElement>(null);
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState<number>(0);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(true);
@@ -23,6 +24,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
   useEffect(() => {
     const audio = audioRef.current;
     const audioContainer = audioContainerRef.current;
+    const timelineContainer = timelineContainerRef.current;
 
     const onLoadedData = () => {
       if (!audio || !audioContainer) return;
@@ -48,18 +50,25 @@ const AudioPlayer = ({ src }: { src: string }) => {
       setIsPaused(true);
     };
 
-    if (!audio) return;
+    const onMouseDown = (event: MouseEvent) => {
+      console.log(event)
+    }
+
+
+    if (!audio || !timelineContainer) return;
 
     audio.addEventListener("loadeddata", onLoadedData);
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
+    timelineContainer.addEventListener("mousedown", onMouseDown)
 
     return () => {
       audio.removeEventListener("loadeddata", onLoadedData);
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
+      timelineContainer.removeEventListener("mousedown", onMouseDown)
     };
   }, [audioRef]);
 
@@ -83,7 +92,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
           <PauseIcon className={pauseSVGClasses.join(" ")} />
         )}
       </div>
-      <div className={classes.timelineContainer}>
+      <div className={classes.timelineContainer} ref={timelineContainerRef}>
         <div className={classes.timeline}></div>
         <div className={classes.timelineDot} ref={timelineDotRef} />
       </div>
