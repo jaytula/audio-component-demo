@@ -41,7 +41,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: calc(var(--position) * 100%);
 }
 
 .timeline {

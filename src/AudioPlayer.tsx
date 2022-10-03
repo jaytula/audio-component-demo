@@ -13,6 +13,7 @@ const formatTime = (sec: number) => {
 const AudioPlayer = ({ src }: { src: string }) => {
   const audioContainerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const timelineDotRef = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState<number>(0);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(true);
@@ -27,17 +28,18 @@ const AudioPlayer = ({ src }: { src: string }) => {
       if (!audio || !audioContainer) return;
 
       setDuration(audio.duration);
-      console.log("adsf");
       audioContainer.style.setProperty("--position", "0");
     };
     const onTimeUpdate = () => {
       const audioContainer = audioContainerRef.current;
+      const timelineDot = timelineDotRef.current;
 
-      if (!audio || !audioContainer) return;
+      if (!audio || !audioContainer || !timelineDot) return;
 
       setTimeRemaining(Math.ceil(audio.duration - audio.currentTime));
       const percent = audio.currentTime / audio.duration;
       audioContainer.style.setProperty("--position", "" + percent);
+      timelineDot.style.setProperty("--position", "" + percent)
     };
     const onPlay = () => {
       setIsPaused(false);
@@ -83,7 +85,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
       </div>
       <div className={classes.timelineContainer}>
         <div className={classes.timeline}></div>
-        <div className={classes.timelineDot} />
+        <div className={classes.timelineDot} ref={timelineDotRef} />
       </div>
       <div className={classes.timeRemaining}>
         {formatTime(timeRemaining || duration)}
